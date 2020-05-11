@@ -65,9 +65,9 @@ class Directory extends Component {
 
             <div className="row">
 
-                <div className="col-20-md">Name</div>
-                <div className="col-20-md">Email</div>
-                <div className="col-20-md">Phone</div>
+                <div className="col-md-4"><h2 style={{fontStyle:"italic", textAlign:"left"}}>Name</h2></div>
+                <div className="col-md-4"><h2 style={{fontStyle:"italic", textAlign:"left"}}>Email</h2></div>
+                <div className="col-md-4"><h2 style={{fontStyle:"italic", textAlign:"left"}}>Phone</h2></div>
 
             </div>
             <div className ="container">

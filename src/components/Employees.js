@@ -6,9 +6,9 @@ const Employees = (props) => {
   return (
 
     <div className="row">
-      <div className="col-20-md">{props.firstName} {props.lastName}</div>
-      <div className = "col-20-md">{props.email}</div>
-      <div className="col-20-md">{props.phone} </div>
+      <div style={{textAlign:"left"}} className="col-md-4">{props.firstName} {props.lastName}</div>
+      <div style={{textAlign:"left"}} className = "col-md-4">{props.email}</div>
+      <div style={{textAlign:"left"}} className="col-md-4">{props.phone} </div>
     </div>
 
   )
