@@ -1,10 +1,13 @@
+// Load required components
 import React, { Component } from "react";
 import Employees from "./Employees.js";
 import Search from "./Search.js";
 import "../styles/Directory.css";
 
+//Extend class to Directory
 class Directory extends Component {
 
+ //Set state variables to check
   state = {
     employees: [],
     empSort: [],
@@ -12,8 +15,7 @@ class Directory extends Component {
     sorted: false,
   };
 
-  // check that the component rendered at least once, and pull in our data
-  // wait for the information to come back
+  // check for rendering wait for data
   componentDidMount = () => {
     fetch(`https://randomuser.me/api/?results=25&nat=us&inc=name,email,phone,id`)
       .then(res => res.json())
@@ -22,8 +24,7 @@ class Directory extends Component {
       })
   };
 
-  // sort through employees based on search term
-  // check if there is a match and set that to empSort for rendering
+  // sort through employees based on search term, check for match and set that to empSort for rendering
   sortEmp = () => {
     let { employees, search } = this.state;
     let empSort = employees.filter(sorted => {
@@ -71,7 +72,7 @@ class Directory extends Component {
             </div>
             <div className ="container">
 
-              {/* if it's not sorted, map accordingly */}
+              {/* use ternary operation, if it's not sorted, map accordingly */}
               {!this.state.sorted ? this.state.employees.map(employee => (
 
 
