@@ -129,7 +129,7 @@ class Directory extends Component {
 
         <div className="container">
 
-            <div className="row">
+            <div className="row header">
 
                 <div onClick={()=>{this.handleSort("Name")}} className="col-md-4"><h2 style={{fontStyle:"italic", textAlign:"left"}}>Name</h2></div>
                 <div onClick={()=>{this.handleSort("Email")}} className="col-md-4"><h2 style={{fontStyle:"italic", textAlign:"left"}}>Email</h2></div>
