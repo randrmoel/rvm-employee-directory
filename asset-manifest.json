@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/rvm-employee-directory/static/css/main.8d50ef7c.chunk.css",
+    "main.js": "/rvm-employee-directory/static/js/main.ecf10094.chunk.js",
+    "main.js.map": "/rvm-employee-directory/static/js/main.ecf10094.chunk.js.map",
+    "runtime-main.js": "/rvm-employee-directory/static/js/runtime-main.c80cc6cb.js",
+    "runtime-main.js.map": "/rvm-employee-directory/static/js/runtime-main.c80cc6cb.js.map",
+    "static/js/2.8f5f280c.chunk.js": "/rvm-employee-directory/static/js/2.8f5f280c.chunk.js",
+    "static/js/2.8f5f280c.chunk.js.map": "/rvm-employee-directory/static/js/2.8f5f280c.chunk.js.map",
+    "index.html": "/rvm-employee-directory/index.html",
+    "precache-manifest.a7fd32c3e95ab8b47549fd6875af8379.js": "/rvm-employee-directory/precache-manifest.a7fd32c3e95ab8b47549fd6875af8379.js",
+    "service-worker.js": "/rvm-employee-directory/service-worker.js",
+    "static/css/main.8d50ef7c.chunk.css.map": "/rvm-employee-directory/static/css/main.8d50ef7c.chunk.css.map",
+    "static/js/2.8f5f280c.chunk.js.LICENSE.txt": "/rvm-employee-directory/static/js/2.8f5f280c.chunk.js.LICENSE.txt",
+    "static/media/Directory.css": "/rvm-employee-directory/static/media/office.cf7a62e2.PNG"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c80cc6cb.js",
+    "static/js/2.8f5f280c.chunk.js",
+    "static/css/main.8d50ef7c.chunk.css",
+    "static/js/main.ecf10094.chunk.js"
+  ]
+}
