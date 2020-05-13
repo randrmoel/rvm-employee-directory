@@ -10,9 +10,10 @@ class Directory extends Component {
  //Set state variables to check
   state = {
     employees: [],
-    empSort: [],
+    empFiltered: [],
     search: "",
-    sorted: false,
+    filtered: false,
+    orderDir: "desc"
   };
 
   // check for rendering wait for data
@@ -20,28 +21,93 @@ class Directory extends Component {
     fetch(`https://randomuser.me/api/?results=25&nat=us&inc=name,email,phone,id`)
       .then(res => res.json())
       .then(json => {
-        this.setState({ employees: json.results })
+        this.setState({ employees: json.results.sort(function(a,b){
+          return ((a.name.last+a.name.first === b.name.last+a.name.first) ? 0 : ((a.name.last+a.name.first > b.name.last+a.name.first) ? 1 :-1));
+        }) })
       })
   };
 
-  // sort through employees based on search term, check for match and set that to empSort for rendering
-  sortEmp = () => {
-    let { employees, search } = this.state;
-    let empSort = employees.filter(sorted => {
-      return (
-        sorted.name.first.toLowerCase().includes(search.toLowerCase()) ||
-        sorted.name.last.toLowerCase().includes(search.toLowerCase()) ||
-        sorted.email.toLowerCase().includes(search.toLowerCase())
-      )
-    })
-    this.setState({ empSort })
+  sortAscLast = (a,b)=>{
+    return ((a.name.last+a.name.first === b.name.last+a.name.first) ? 0 : ((a.name.last+a.name.first > b.name.last+a.name.first) ? 1 :-1));
   }
 
-  // grab search term, activate sorted  
-  startSort = event => {
+  handleSort = (colHead) =>{
+    
+    switch (colHead){
+      case 'Name':
+        if(this.state.orderDir ==='asc'){
+          this.setState({orderDir:'desc'});
+          this.setState({employees:this.state.employees.sort(function(a,b){
+            return ((a.name.last+a.name.first === b.name.last+a.name.first) ? 0 : ((a.name.last+a.name.first > b.name.last+a.name.first) ? 1 :-1));
+          })
+          })
+       } else {
+         this.setState({orderDir:'asc'});
+         this.setState({employees:this.state.employees.sort(function(a,b){
+          return ((a.name.last+a.name.first === b.name.last+a.name.first) ? 0 : ((a.name.last+a.name.first < b.name.last+a.name.first) ? 1 :-1));
+        })
+        })
+       }
+       break;
+      case 'Email':
+        if(this.state.orderDir ==='asc'){
+          this.setState({orderDir:'desc'});
+          this.setState({employees:this.state.employees.sort(function(a,b){
+            return ((a.email === b.email) ? 0 : ((a.email > b.email) ? 1 :-1));
+          })
+          })
+       } else {
+         this.setState({orderDir:'asc'});
+         this.setState({employees:this.state.employees.sort(function(a,b){
+          return ((a.email === b.email) ? 0 : ((a.email < b.email) ? 1 :-1));
+        })
+        })
+       }
+
+        break;
+      case 'Phone':
+        if(this.state.orderDir ==='asc'){
+          this.setState({orderDir:'desc'});
+          this.setState({employees:this.state.employees.sort(function(a,b){
+            return ((a.phone === b.phone) ? 0 : ((a.phone > b.phone) ? 1 :-1));
+          })
+          })
+       } else {
+         this.setState({orderDir:'asc'});
+         this.setState({employees:this.state.employees.sort(function(a,b){
+          return ((a.phone === b.phone) ? 0 : ((a.phone < b.phone) ? 1 :-1));
+        })
+        })
+       }
+
+        break;
+      default:
+        console.log('Do Nothing');
+        break;
+    }
+    //Logic for sorting
+    console.log(colHead);
+    //this.state = filtered? then set into the empFiltered otherwise to Employees
+  }
+
+  // sort through employees based on search term, check for match and set that to empFiltered for rendering
+  filterEmp = () => {
+    let { employees, search } = this.state;
+    let empFiltered = employees.filter(filtered => {
+      return (
+        filtered.name.first.toLowerCase().includes(search.toLowerCase()) ||
+        filtered.name.last.toLowerCase().includes(search.toLowerCase()) ||
+        filtered.email.toLowerCase().includes(search.toLowerCase())
+      )
+    })
+    this.setState({ empFiltered })
+  }
+
+  // grab search term, activate filtered  
+  startFilter = event => {
     this.setState({ search: event.target.value }, () => {
-      this.sortEmp();
-      this.setState({ sorted: true });
+      this.filterEmp();
+      this.setState({ filtered: true });
     });
   };
 
@@ -56,7 +122,7 @@ class Directory extends Component {
           </h3>
           <Search
             name="search"
-            startSort={this.startSort}
+            startFilter={this.startFilter}
             label="Search"
           />
         </div>
@@ -65,15 +131,15 @@ class Directory extends Component {
 
             <div className="row">
 
-                <div className="col-md-4"><h2 style={{fontStyle:"italic", textAlign:"left"}}>Name</h2></div>
-                <div className="col-md-4"><h2 style={{fontStyle:"italic", textAlign:"left"}}>Email</h2></div>
-                <div className="col-md-4"><h2 style={{fontStyle:"italic", textAlign:"left"}}>Phone</h2></div>
+                <div onClick={()=>{this.handleSort("Name")}} className="col-md-4"><h2 style={{fontStyle:"italic", textAlign:"left"}}>Name</h2></div>
+                <div onClick={()=>{this.handleSort("Email")}} className="col-md-4"><h2 style={{fontStyle:"italic", textAlign:"left"}}>Email</h2></div>
+                <div onClick={()=>{this.handleSort("Phone")}} className="col-md-4"><h2 style={{fontStyle:"italic", textAlign:"left"}}>Phone</h2></div>
 
             </div>
             <div className ="container">
 
-              {/* use ternary operation, if it's not sorted, map accordingly */}
-              {!this.state.sorted ? this.state.employees.map(employee => (
+              {/* use ternary operation, if it's not filtered, map accordingly */}
+              {!this.state.filtered ? this.state.employees.map(employee => (
 
 
                 < Employees
@@ -85,8 +151,8 @@ class Directory extends Component {
                 />
 
               ))
-                // otherwise map the sorted employees
-                : this.state.empSort.map(employee => (
+                // otherwise map the filtered employees
+                : this.state.empFiltered.map(employee => (
 
                   <Employees
                     key={employee.id.value}
@@ -95,14 +161,10 @@ class Directory extends Component {
                     phone={employee.phone}
                     email={employee.email}
                   />
-
                 ))};
           </div >
-
         </div>
-
       </div >
-
     )
 
   }

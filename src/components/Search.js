@@ -11,7 +11,7 @@ const Search = (props) => {
           name="search"
           type="text"
           className="form-control-lg search-font mx-auto"
-          onChange={(event) => props.startSort(event)}
+          onChange={(event) => props.startFilter(event)}
         />
       </form>
     </div>
