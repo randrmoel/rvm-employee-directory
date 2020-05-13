@@ -27,9 +27,19 @@ class Directory extends Component {
       })
   };
 
-  sortAscLast = (a,b)=>{
-    return ((a.name.last+a.name.first === b.name.last+a.name.first) ? 0 : ((a.name.last+a.name.first > b.name.last+a.name.first) ? 1 :-1));
-  }
+  sortLast = (a,b)=>{
+    let a_first = a.name.first.toLowerCase
+    let a_last = a.name.last.toLowerCase
+    let b_first = a.name.first.toLowerCase
+    let b_last = b.name.last.toLowerCase
+    if(this.state.orderDir === 'asc'){
+      this.setState({orderDir:'desc'})
+      return ((a_last + a_first === b_last + b_first) ? 0 : ((a_last + a_first > b_last + b_first) ? 1 : -1));
+    } else {
+      this.setState({orderDir:'asc'})
+      return ((a_last + a_first === b_last + b_first) ? 0 : ((a_last + a_first < b_last + b_first) ? 1 : -1));
+    }
+  } 
 
   handleSort = (colHead) =>{
     
