@@ -39,13 +39,21 @@ class Directory extends Component {
           this.setState({orderDir:'desc'});
           this.setState({employees:this.state.employees.sort(function(a,b){
             return ((a.name.last+a.name.first === b.name.last+a.name.first) ? 0 : ((a.name.last+a.name.first > b.name.last+a.name.first) ? 1 :-1));
+            })
           })
+          this.setState({empFiltered:this.state.employees.sort(function(a,b){
+            return ((a.name.last+a.name.first === b.name.last+a.name.first) ? 0 : ((a.name.last+a.name.first > b.name.last+a.name.first) ? 1 :-1));
+            })
           })
        } else {
          this.setState({orderDir:'asc'});
          this.setState({employees:this.state.employees.sort(function(a,b){
           return ((a.name.last+a.name.first === b.name.last+a.name.first) ? 0 : ((a.name.last+a.name.first < b.name.last+a.name.first) ? 1 :-1));
+          })
         })
+        this.setState({empFiltered:this.state.employees.sort(function(a,b){
+          return ((a.name.last+a.name.first === b.name.last+a.name.first) ? 0 : ((a.name.last+a.name.first < b.name.last+a.name.first) ? 1 :-1));
+          })
         })
        }
        break;
@@ -54,32 +62,47 @@ class Directory extends Component {
           this.setState({orderDir:'desc'});
           this.setState({employees:this.state.employees.sort(function(a,b){
             return ((a.email === b.email) ? 0 : ((a.email > b.email) ? 1 :-1));
+            })
           })
+          this.setState({empFiltered:this.state.employees.sort(function(a,b){
+            return ((a.email === b.email) ? 0 : ((a.email > b.email) ? 1 :-1));
+            })
           })
+
        } else {
          this.setState({orderDir:'asc'});
          this.setState({employees:this.state.employees.sort(function(a,b){
           return ((a.email === b.email) ? 0 : ((a.email < b.email) ? 1 :-1));
+          })
         })
+        this.setState({empFiltered:this.state.employees.sort(function(a,b){
+          return ((a.email === b.email) ? 0 : ((a.email < b.email) ? 1 :-1));
+          })
         })
        }
-
         break;
       case 'Phone':
         if(this.state.orderDir ==='asc'){
           this.setState({orderDir:'desc'});
           this.setState({employees:this.state.employees.sort(function(a,b){
             return ((a.phone === b.phone) ? 0 : ((a.phone > b.phone) ? 1 :-1));
+            })
           })
+          this.setState({empFiltered:this.state.employees.sort(function(a,b){
+            return ((a.phone === b.phone) ? 0 : ((a.phone > b.phone) ? 1 :-1));
+            })
           })
        } else {
          this.setState({orderDir:'asc'});
          this.setState({employees:this.state.employees.sort(function(a,b){
           return ((a.phone === b.phone) ? 0 : ((a.phone < b.phone) ? 1 :-1));
+          })
         })
+        this.setState({empFiltered:this.state.employees.sort(function(a,b){
+          return ((a.phone === b.phone) ? 0 : ((a.phone < b.phone) ? 1 :-1));
+          })
         })
        }
-
         break;
       default:
         console.log('Do Nothing');
