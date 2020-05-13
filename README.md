@@ -1,7 +1,11 @@
 ## React Employee Directory
 Filter and sort an employee directory dynamically
 
+<<<<<<< HEAD
 <img src = "react-directory-pic.JPG" alt ="app picture" />   
+=======
+<img src = "react-directory-pic.JPG" alt ="app picture"/>   
+>>>>>>> 327be1eeec7edb03ce8a30e585c601c03beea2ab
 
 ## Description
 This application uses react to create a responsive webpage with filtering and sorting capability.
