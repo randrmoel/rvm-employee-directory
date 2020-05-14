@@ -16,102 +16,81 @@ class Directory extends Component {
     orderDir: "desc"
   };
 
+  sortName = (a,b) => {
+    let a_first = a.name.first.toLowerCase();
+    let a_last = a.name.last.toLowerCase();
+    let b_first = b.name.first.toLowerCase();
+    let b_last = b.name.last.toLowerCase();
+    if(this.state.orderDir === 'asc'){
+      return ((a_last + a_first === b_last + b_first) ? 0 : ((a_last + a_first > b_last + b_first) ? 1 : -1));
+    } else {
+      return ((a_last + a_first === b_last + b_first) ? 0 : ((a_last + a_first < b_last + b_first) ? 1 : -1));
+    }
+  } 
+
+  sortMail = (a,b) => {
+    let a_email = a.email.toLowerCase();
+    let b_email = b.email.toLowerCase();
+    if(this.state.orderDir === 'asc'){
+      return ((a_email === b_email) ? 0 : ((a_email > b_email) ? 1 :-1));
+    } else {
+      return ((a_email === b_email) ? 0 : ((a_email < b_email) ? 1 :-1));
+    }
+  }
+
+  sortPhone = (a,b) => {
+    let a_phone = a.phone;
+    let b_phone = b.phone;
+    if(this.state.orderDir === 'asc'){
+      return ((a_phone === b_phone) ? 0 : ((a_phone > b_phone) ? 1 :-1));
+    } else {
+      return ((a_phone === b_phone) ? 0 : ((a_phone < b_phone) ? 1 :-1));
+    }
+  }
+
   // check for rendering wait for data
   componentDidMount = () => {
     fetch(`https://randomuser.me/api/?results=25&nat=us&inc=name,email,phone,id`)
       .then(res => res.json())
       .then(json => {
-        this.setState({ employees: json.results.sort(function(a,b){
-          return ((a.name.last+a.name.first === b.name.last+a.name.first) ? 0 : ((a.name.last+a.name.first > b.name.last+a.name.first) ? 1 :-1));
-        }) })
+        this.setState({ employees: json.results.sort(this.sortName)})
       })
   };
 
-  sortLast = (a,b)=>{
-    let a_first = a.name.first.toLowerCase
-    let a_last = a.name.last.toLowerCase
-    let b_first = a.name.first.toLowerCase
-    let b_last = b.name.last.toLowerCase
-    if(this.state.orderDir === 'asc'){
-      this.setState({orderDir:'desc'})
-      return ((a_last + a_first === b_last + b_first) ? 0 : ((a_last + a_first > b_last + b_first) ? 1 : -1));
-    } else {
-      this.setState({orderDir:'asc'})
-      return ((a_last + a_first === b_last + b_first) ? 0 : ((a_last + a_first < b_last + b_first) ? 1 : -1));
-    }
-  } 
-
   handleSort = (colHead) =>{
-    
+
     switch (colHead){
       case 'Name':
         if(this.state.orderDir ==='asc'){
+          this.setState({employees:this.state.employees.sort(this.sortName)});
+          this.setState({empFiltered:this.state.employees.sort(this.sortName)});
           this.setState({orderDir:'desc'});
-          this.setState({employees:this.state.employees.sort(function(a,b){
-            return ((a.name.last+a.name.first === b.name.last+a.name.first) ? 0 : ((a.name.last+a.name.first > b.name.last+a.name.first) ? 1 :-1));
-            })
-          })
-          this.setState({empFiltered:this.state.employees.sort(function(a,b){
-            return ((a.name.last+a.name.first === b.name.last+a.name.first) ? 0 : ((a.name.last+a.name.first > b.name.last+a.name.first) ? 1 :-1));
-            })
-          })
        } else {
-         this.setState({orderDir:'asc'});
-         this.setState({employees:this.state.employees.sort(function(a,b){
-          return ((a.name.last+a.name.first === b.name.last+a.name.first) ? 0 : ((a.name.last+a.name.first < b.name.last+a.name.first) ? 1 :-1));
-          })
-        })
-        this.setState({empFiltered:this.state.employees.sort(function(a,b){
-          return ((a.name.last+a.name.first === b.name.last+a.name.first) ? 0 : ((a.name.last+a.name.first < b.name.last+a.name.first) ? 1 :-1));
-          })
-        })
+          this.setState({employees:this.state.employees.sort(this.sortName)});
+          this.setState({empFiltered:this.state.employees.sort(this.sortName)});
+          this.setState({orderDir:'asc'});
        }
        break;
       case 'Email':
         if(this.state.orderDir ==='asc'){
+          this.setState({employees:this.state.employees.sort(this.sortMail)});
+          this.setState({empFiltered:this.state.employees.sort(this.sortMail)});
           this.setState({orderDir:'desc'});
-          this.setState({employees:this.state.employees.sort(function(a,b){
-            return ((a.email === b.email) ? 0 : ((a.email > b.email) ? 1 :-1));
-            })
-          })
-          this.setState({empFiltered:this.state.employees.sort(function(a,b){
-            return ((a.email === b.email) ? 0 : ((a.email > b.email) ? 1 :-1));
-            })
-          })
-
        } else {
+         this.setState({employees:this.state.employees.sort(this.sortMail)});
+         this.setState({empFiltered:this.state.employees.sort(this.sortMail)});
          this.setState({orderDir:'asc'});
-         this.setState({employees:this.state.employees.sort(function(a,b){
-          return ((a.email === b.email) ? 0 : ((a.email < b.email) ? 1 :-1));
-          })
-        })
-        this.setState({empFiltered:this.state.employees.sort(function(a,b){
-          return ((a.email === b.email) ? 0 : ((a.email < b.email) ? 1 :-1));
-          })
-        })
        }
         break;
       case 'Phone':
         if(this.state.orderDir ==='asc'){
+          this.setState({employees:this.state.employees.sort(this.sortPhone)});
+          this.setState({empFiltered:this.state.employees.sort(this.sortPhone)});
           this.setState({orderDir:'desc'});
-          this.setState({employees:this.state.employees.sort(function(a,b){
-            return ((a.phone === b.phone) ? 0 : ((a.phone > b.phone) ? 1 :-1));
-            })
-          })
-          this.setState({empFiltered:this.state.employees.sort(function(a,b){
-            return ((a.phone === b.phone) ? 0 : ((a.phone > b.phone) ? 1 :-1));
-            })
-          })
        } else {
-         this.setState({orderDir:'asc'});
-         this.setState({employees:this.state.employees.sort(function(a,b){
-          return ((a.phone === b.phone) ? 0 : ((a.phone < b.phone) ? 1 :-1));
-          })
-        })
-        this.setState({empFiltered:this.state.employees.sort(function(a,b){
-          return ((a.phone === b.phone) ? 0 : ((a.phone < b.phone) ? 1 :-1));
-          })
-        })
+          this.setState({employees:this.state.employees.sort(this.sortPhone)});
+          this.setState({empFiltered:this.state.employees.sort(this.sortPhone)});
+          this.setState({orderDir:'asc'});
        }
         break;
       default:
@@ -130,6 +109,7 @@ class Directory extends Component {
       return (
         filtered.name.first.toLowerCase().includes(search.toLowerCase()) ||
         filtered.name.last.toLowerCase().includes(search.toLowerCase()) ||
+        (filtered.name.first.toLowerCase() + ' ' + filtered.name.last.toLowerCase()).includes(search.toLowerCase()) ||
         filtered.email.toLowerCase().includes(search.toLowerCase())
       )
     })
